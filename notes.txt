@@ -1,0 +1,6 @@
+the /deps folder required by the dockerfile cant be sent over git as it contains large files namely:
+gradle-7.6-bin.zip
+jdk-17_linux-x64_bin.deb 
+
+either download them on remote or send using sftp.
+
