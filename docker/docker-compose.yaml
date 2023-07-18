@@ -1,0 +1,47 @@
+services:
+
+##################################
+## JTK service ###################
+##################################
+
+    jtk:
+        build:
+            context: .
+            dockerfile: Dockerfile
+
+        # platform: linux/arm64/v8
+
+        stdin_open: true     #docker run -i
+        tty: true            #docker run -t
+
+        ports:
+            - "9999:9999"       #default port for fastdds see https://fast-dds.docs.eprosima.com/en/latest/fastddscli/cli/cli.html#cli-discovery
+
+        environment:
+            - DISPLAY
+            
+
+
+        command: 
+            - /bin/bash
+            - -c 
+            - |
+                echo $DISPLAY;
+                echo $PATH;
+                ls;
+                ls /usr/lib/jvm/;
+                java --version;
+                pwd;
+                whoami;
+                cd /home;
+                ls /app/jtk;
+                echo $JAVA_LIBRARY_PATH;
+                python2 --version;
+                # export CLASSPATH=.:$CLASSPATH;
+                #/app/rez-sos/src/sos/jy.sh /app/rez-sos/src/sos/fed2_2.py;
+                tail -f > /dev/null
+
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix:rw
+            - /data:/data
+            - /home/rezlytix/sn_progs/sos/rezsos:/app/sos
